@@ -117,7 +117,7 @@ router.delete("/delete/:id", deleteStore);
 // GET BY ID
 /**
  * @swagger
- * /store/{id}:
+ * /store/findStore/{id}:
  *   get:
  *     summary: Get a storage space by ID.
  *     tags: [Store]

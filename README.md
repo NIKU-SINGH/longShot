@@ -1,76 +1,66 @@
 # Grocery Store Stock Management API
 
-This project is a back-end application built using Node.js that provides an API for managing and categorizing stock for a small-scale grocery store. The API allows you to create storage spaces, define item types, and manage items with specific properties and storage requirements. It also handles item expiration and disposal.
-
-## Installation
-
-To run the Grocery Store Stock Management API, follow these steps:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/NIKU-SINGH/longShot_task
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd LongshotAI
-   ```
-
-3. Install the dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. Set up the environment variables:
-
-   - Create a `.env` file based on the provided `.env.example` file.
-   - Configure the necessary environment variables, such as the database connection details.
-
-5. Set up the database:
-
-   - Ensure you have a MongoDB instance running or provide the connection details in the `.env` file.
-   - The API will create the required collections and indexes automatically.
-
-6. Start the API:
-
-   ```bash
-   npm start
-   ```
-
-7. The API will be accessible at `http://localhost:3000`.
+The Grocery Store Stock Management API is a compact back-end application designed to serve an API for managing and categorizing stock for a small-scale grocery store. The API allows users to create, update, and delete storage spaces (stores), item types, and items stored in the spaces.
 
 ## API Endpoints
 
-The Grocery Store Stock Management API provides the following endpoints:
+### Storage Spaces (Stores)
 
-- **Storage Spaces**
-  - `POST /storage-spaces`: Create a new storage space.
-  - `PUT /storage-spaces/:id`: Rename an existing storage space.
-  - `DELETE /storage-spaces/:id`: Delete an unoccupied storage space.
-  - `GET /storage-spaces/:id/items`: Get a list of items allocated to a specific storage space.
+- **Create Storage Space**: `POST /api/store/create`
+  - Create a new storage space with a unique name, refrigeration indicator, and a maximum limit for items.
 
-- **Item Types**
-  - `POST /item-types`: Create a new item type.
-  - `PUT /item-types/:id`: Rename an existing item type.
-  - `DELETE /item-types/:id`: Delete an item type if it has no associated items.
+- **Update Storage Space**: `PUT /api/store/update/:id`
+  - Update an existing storage space by ID.
 
-- **Items**
-  - `POST /items`: Create a new item.
-  - `PUT /items/:id/move`: Relocate an item to a different storage space.
-  - `DELETE /items/:id`: Remove an existing item.
-  - `GET /items`: Get a paginated list of all items, optionally sorted by expiration date.
+- **Delete Storage Space**: `DELETE /api/store/delete/:id`
+  - Delete a storage space by ID.
 
-Refer to the API documentation or explore the code for more details on request payloads and responses.
+- **Get Storage Space by ID**: `GET /api/store/findStore/:id`
+  - Get a storage space by its unique ID.
 
-## Contributing
+- **Get All Storage Spaces**: `GET /api/store`
+  - Get a list of all storage spaces.
 
-Contributions to the Grocery Store Stock Management API are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue on the GitHub repository. Pull requests with code improvements, bug fixes, or additional features are also appreciated.
+### Item Types
 
-Before submitting a pull request, please ensure that your changes follow the project's coding standards, and include appropriate tests.
+- **Create Item Type**: `POST /api/itemType/create`
+  - Create a new item type with a unique name and indicator for refrigeration requirements.
 
-## License
+- **Update Item Type**: `PUT /api/itemType/update/:id`
+  - Update an existing item type by ID.
 
-This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute the code as needed.
+- **Delete Item Type**: `DELETE /api/itemType/delete/:id`
+  - Delete an item type by ID.
+
+- **Get All Item Types**: `GET /api/itemType/getall`
+  - Get a list of all item types.
+
+### Items
+
+- **Create Item**: `POST /api/item/create`
+  - Create a new item with a unique title, author, and finished status.
+
+- **Update Item**: `PUT /api/item/update/:id`
+  - Update an existing item by ID.
+
+- **Delete Item**: `DELETE /api/item/delete/:id`
+  - Delete an item by ID.
+
+- **Get Item by ID**: `GET /api/item/:id`
+  - Get an item by its unique ID.
+
+## API Documentation (Swagger)
+
+The API is documented using Swagger/OpenAPI specification. The documentation provides details about each endpoint, including the required request bodies, responses, and example data. You can access the Swagger documentation by starting the server and navigating to the `/api-docs` route.
+
+## Getting Started
+
+1. Install the required dependencies by running `npm install`.
+2. Start the server by running `npm start`.
+3. The server will start running on `http://localhost:3000`.
+
+Please ensure you have MongoDB set up and running, as the application relies on a database to store the storage spaces, item types, and items' information.
+
+Feel free to use this API as a backend solution for your grocery store stock management application. For any questions or issues, please refer to the API documentation or reach out to the development team for support.
+
+Happy managing and categorizing your grocery store stock!
