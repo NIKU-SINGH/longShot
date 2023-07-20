@@ -1,50 +1,71 @@
 import express from "express";
 // Imports
-import connection from './connector/db.js'
+import connection from "./connector/db.js";
 import dotenv from "dotenv";
+import cors from "cors";
+import storeRoute from "./routes/store.js";
+import itemRoute from "./routes/item.js";
+import itemTypeRoute from "./routes/itemType.js";
 
-
-const app = express()
-dotenv.config();
-
+// swagger
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 // PORT of the application will be changed when it is deployed
-const PORT = 8000
+const PORT = 8000;
 
-// Connecting it to Mongo DB
-// connection();
+const app = express();
+dotenv.config();
 
-import { MongoClient, ServerApiVersion } from 'mongodb'
-const uri = "mongodb+srv://szabo:<password>@store.271vnuc.mongodb.net/?retryWrites=true&w=majority";
+// Swagger
+const options = {
+  definition: {
+    openapi: "3.1.0",
+    info: {
+      title: "Store App API Docs",
+      version: "0.1.0",
+      description:
+        "This is a simple CRUD API application made with Express and documented with Swagger",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:8000/api/",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+const specs = swaggerJsdoc(options);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use("/api/store", storeRoute);
+app.use("/api/item", itemRoute);
+app.use("/api/itemType", itemTypeRoute);
+
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something wen wrong!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+// Connecting it to Mongo DB
+connection();
 
-
-app.get("/",(req,res) => {
-    res.send("Heee")
-})
-
-app.listen(PORT,() => {
-    console.log("server runniing on PORT",PORT)
-})
+app.listen(PORT, () => {
+  console.log("server runniing on PORT", PORT);
+});
