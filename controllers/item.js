@@ -53,7 +53,7 @@ export const getItem = async (req, res, next) => {
 export const getAllItem = async (req, res, next) => {
     try {
         // Retrieve all Items from the database and return them in the response
-        const Item = await Item.find();
+        const items = await Item.find().sort({ expiryDate: 1 }); // Sort in ascending order based on expiryDate
         res.status(200).json(Item);
     } catch (err) {
         next(err); // Pass any error to the error handling middleware
