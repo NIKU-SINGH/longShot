@@ -2,6 +2,9 @@
 
 The Grocery Store Stock Management API is a compact back-end application designed to serve an API for managing and categorizing stock for a small-scale grocery store. The API allows users to create, update, and delete storage spaces (stores), item types, and items stored in the spaces.
 
+## Deployed Link
+[Store App]("https://store-app-g0cb.onrender.com/api-docs/")
+
 ## API Endpoints
 
 ### Storage Spaces (Stores)
