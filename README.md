@@ -4,7 +4,7 @@ The Grocery Store Stock Management API is a compact back-end application designe
 
 ## Deployed Link
 
-[Store App]("https://store-app-g0cb.onrender.com/api-docs/")
+[Store App](https://store-app-g0cb.onrender.com/api-docs/)
 
 ## API Endpoints
 
