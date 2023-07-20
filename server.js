@@ -12,7 +12,7 @@ import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
 // PORT of the application will be changed when it is deployed
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 const app = express();
 dotenv.config();
@@ -33,7 +33,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:8000/api/",
+        url: "https://store-app-g0cb.onrender.com/api" || "http://localhost:8000",
       },
     ],
   },
@@ -41,7 +41,7 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Middleware
 app.use(cors());
