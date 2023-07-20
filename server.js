@@ -16,6 +16,17 @@ const PORT = process.env.PORT || 8000;
 
 const app = express();
 dotenv.config();
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Middleware to check the route and redirect if necessary
+const redirectHomeToAPIDocs = (req, res, next) => {
+  if (req.originalUrl === "/") {
+    return res.redirect("/api-docs");
+  }
+  next(); // Continue to the next middleware or route handler
+};
 
 // Swagger
 const options = {
@@ -33,7 +44,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://store-app-g0cb.onrender.com/api" || "http://localhost:8000",
+        url: "https://store-app-g0cb.onrender.com/api" ||  "http://localhost:8000/api/",
       },
     ],
   },
@@ -41,11 +52,9 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
-app.use("/", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use(redirectHomeToAPIDocs);
 
-// Middleware
-app.use(cors());
-app.use(express.json());
 
 // Routes
 app.use("/api/store", storeRoute);
