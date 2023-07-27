@@ -13,6 +13,6 @@ const itemTypeSchema = new Schema({
     default: false,
   },
   itemList : [{type: Schema.Types.ObjectId, ref: 'item'}]
-});
+},{timestamps:true});
 
 export default mongoose.model("itemType", itemTypeSchema);

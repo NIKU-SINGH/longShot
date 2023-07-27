@@ -28,7 +28,7 @@ const redirectHomeToAPIDocs = (req, res, next) => {
   next(); // Continue to the next middleware or route handler
 };
 
-// Swagger
+// Swagger/#/Item/post_item_create
 const options = {
   definition: {
     openapi: "3.1.0",

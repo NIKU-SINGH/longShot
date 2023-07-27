@@ -33,7 +33,7 @@ const itemSchema = new Schema({
       message: "Expiration date must be in the future.",
     },
   },
-});
+},{timestamps:true});
 
 export default mongoose.model("item", itemSchema);
 
